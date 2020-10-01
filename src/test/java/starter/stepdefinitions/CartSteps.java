@@ -31,16 +31,18 @@ public class CartSteps {
     @And("(s)he has items in his shopping cart")
     public void thereAreItemsInShoppingCart() throws IOException {
         Actor theCustomer = theActorInTheSpotlight();
+
         theCustomer.attemptsTo(
-                Check.whether(theNumberOfItemsInShoppingCart(), is(0)).andIfSo(AddItem.randomlySelected()));
+                Check.whether(theNumberOfItemsInShoppingCart(), is(0)).
+                        andIfSo(AddItem.randomlySelected()));
         theCustomer.remember(CART_COUNTER, theNumberOfItemsInShoppingCart());
     }
 
     @When("(s)he removes an item from the the cart")
     public void heRemovesAnItemFromTheTheCart() {
         Actor theCustomer = theActorInTheSpotlight();
-
         Object lastItemAdded = theCustomer.recall("LAST_ITEM_ADDED");
+
         theCustomer.attemptsTo(
                 Check.whether(lastItemAdded==null)
                         .andIfSo(RemoveItem.firstInList())

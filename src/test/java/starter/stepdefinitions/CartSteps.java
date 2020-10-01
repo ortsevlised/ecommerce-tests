@@ -14,10 +14,9 @@ import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.hamcrest.Matchers.is;
 import static starter.actions.ShoppingCartQuestions.theNumberOfItemsInShoppingCart;
+import static starter.ui.Cart.CART_COUNTER;
 
 public class CartSteps {
-
-    private static String lastItemAdded;
 
     @Then("the cart counter is updated with the extra item(s)")
     public void cartIsUpdated() {
@@ -29,26 +28,26 @@ public class CartSteps {
         theActorInTheSpotlight().should(seeThat(theNumberOfItemsInShoppingCart(), is(getCartCounterBeforeTheUpdate()-1)));
     }
 
-    private int getCartCounterBeforeTheUpdate() {
-        return theActorInTheSpotlight().recall("CART_COUNTER");
-    }
-
     @And("(s)he has items in his shopping cart")
     public void thereAreItemsInShoppingCart() throws IOException {
-        theActorInTheSpotlight().attemptsTo(
-                Check.whether(theNumberOfItemsInShoppingCart(), is(0)).andIfSo(
-                        AddItem.randomlySelected())
-        );
-        theActorInTheSpotlight().remember("CART_COUNTER", theNumberOfItemsInShoppingCart());
+        Actor theCustomer = theActorInTheSpotlight();
+        theCustomer.attemptsTo(
+                Check.whether(theNumberOfItemsInShoppingCart(), is(0)).andIfSo(AddItem.randomlySelected()));
+        theCustomer.remember(CART_COUNTER, theNumberOfItemsInShoppingCart());
     }
 
     @When("(s)he removes an item from the the cart")
     public void heRemovesAnItemFromTheTheCart() {
         Actor theCustomer = theActorInTheSpotlight();
 
+        Object lastItemAdded = theCustomer.recall("LAST_ITEM_ADDED");
         theCustomer.attemptsTo(
-                Check.whether(theCustomer.recall("LAST_ITEM_ADDED") == null)
+                Check.whether(lastItemAdded==null)
                         .andIfSo(RemoveItem.firstInList())
-                        .otherwise(RemoveItem.called(theCustomer.recall("LAST_ITEM_ADDED").toString())));
+                        .otherwise(RemoveItem.called(String.valueOf(lastItemAdded))));
+    }
+
+    private int getCartCounterBeforeTheUpdate() {
+        return theActorInTheSpotlight().recall("CART_COUNTER");
     }
 }

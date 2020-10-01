@@ -1,8 +1,5 @@
 package starter.ui;
 
-import net.serenitybdd.screenplay.targets.Target;
-import org.openqa.selenium.By;
-
 public class Cart  {
-
+public static final String CART_COUNTER = "CART_COUNTER";
 }

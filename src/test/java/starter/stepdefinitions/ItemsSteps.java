@@ -8,15 +8,14 @@ import java.io.IOException;
 
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static starter.actions.ShoppingCartQuestions.theNumberOfItemsInShoppingCart;
+import static starter.ui.Cart.CART_COUNTER;
 
 public class ItemsSteps {
 
     @Given("(s)he adds an item to the cart")
     public void addItemToCart() throws IOException {
-        Actor actor = theActorInTheSpotlight();
-        actor.remember("CART_COUNTER", theNumberOfItemsInShoppingCart());
-        actor.attemptsTo(AddItem.randomlySelected());
+        Actor theCustomer = theActorInTheSpotlight();
+        theCustomer.remember(CART_COUNTER, theNumberOfItemsInShoppingCart());
+        theCustomer.attemptsTo(AddItem.randomlySelected());
     }
-
-
 }

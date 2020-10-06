@@ -69,7 +69,6 @@ public class AddItem implements Task {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(new File("src/test/resources/shop_data.json"));
         JsonNode jsonNode = root.path(category.name().toLowerCase()).path("items");
-        System.out.println(jsonNode.size());
         return jsonNode.get(new Random().nextInt(jsonNode.size())).get("name").textValue();
     }
 }

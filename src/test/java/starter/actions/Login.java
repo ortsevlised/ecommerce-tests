@@ -26,6 +26,7 @@ public class Login implements Task {
                 Enter.theValue(email).into(SignIn.LOGIN_EMAIL_INPUT),
                 Enter.theValue(password).into(SignIn.LOGIN_PASSWORD_INPUT),
                 Click.on(SignIn.LOGIN_BTN)
+
         );
     }
 

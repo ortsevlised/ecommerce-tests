@@ -1,7 +1,14 @@
+sudo: required
+dist: trusty
+
 language: java
-jdk: oraclejdk11
+jdk: oraclejdk8
 
 before_script:
+  - export DISPLAY=':99.0'
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+
   # Download Chrome Driver
   - LATEST_CHROMEDRIVER=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
   - wget http://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER/chromedriver_linux64.zip

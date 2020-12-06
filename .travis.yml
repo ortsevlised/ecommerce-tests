@@ -5,6 +5,9 @@ language: java
 jdk: oraclejdk8
 
 before_script:
+  - sudo apt-get clean
+  - sudo apt-get update
+  - sudo apt-get install dpkg
 
   # Download Chrome Driver
   - LATEST_CHROMEDRIVER=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)

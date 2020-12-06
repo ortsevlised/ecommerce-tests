@@ -10,6 +10,7 @@ before_script:
   - sudo apt-get install dpkg
 
   # Download Chrome Driver
+  # Download Chrome Driver
   - LATEST_CHROMEDRIVER=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
   - wget http://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip
@@ -24,4 +25,4 @@ before_script:
   - google-chrome --version
 
 ## Run Integration tests
-script: "mvn test && mvn -Denv=chrome verify"
+script: "mvn verify"
